@@ -47,9 +47,12 @@ steps:
   - name: Auto committing minified files
     uses: stefanzweifel/git-auto-commit-action@v3.0.0
     with:
+      repository: 'js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
       branch: ${{ github.ref }}
 ```
+
+> Please note that the `output` will be in the same _directory_ as `directory` which here is `js`. Therefore, we will need to update `repository` in _auto committing_ to also match `directory`.
 
 ##### With different output directory
 
@@ -69,8 +72,9 @@ steps:
   - name: Auto committing minified files
     uses: stefanzweifel/git-auto-commit-action@v3.0.0
     with:
+      repository: 'mini_js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
       branch: ${{ github.ref }}
 ```
 
-> Please note that you will have to `commit` the changed files using a different `action`
+> Please note that the `repository` when _auto comitting_ has to match `output` in _auto minify_
