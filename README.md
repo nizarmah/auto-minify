@@ -15,6 +15,9 @@ Minifies JS and CSS files with UglifyJS and CleanCSS
 
 ```
 steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
+  - uses: actions/checkout@v2
+  
   - name: Auto Minify
     uses: actions/auto-minify@v1
 ```
@@ -23,6 +26,9 @@ steps:
 
 ```
 steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
+  - uses: actions/checkout@v2
+
   - name: Auto Minify
     uses: actions/auto-minify@v1
     with:
@@ -33,6 +39,9 @@ steps:
 
 ```
 steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
+  - uses: actions/checkout@v2
+
   - name: Auto Minify
     uses: actions/auto-minify@v1
     with:
