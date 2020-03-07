@@ -17,6 +17,8 @@ elif [[ $INPUT_OUTPUT =~ ^.*\/$ ]]; then
 	INPUT_OUTPUT="$DIR/$INPUT_OUTPUT"
 fi
 
+mkdir -p $INPUT_OUTPUT
+
 for filename in `ls $INPUT_DIRECTORY`; do
 	filepath="$INPUT_DIRECTORY/$filename"
 
