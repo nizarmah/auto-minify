@@ -17,9 +17,17 @@ Minifies JS and CSS files with UglifyJS and CleanCSS
 steps:
   # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
   - uses: actions/checkout@v2
-  
+
   - name: Auto Minify
-    uses: actions/auto-minify@v1
+    uses: nizarmah/auto-minify@v1
+  
+  # Auto commits minified files to the repository
+  # Ignore it if you don't want to commit the files to the repository 
+  - name: Auto committing minified files
+    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    with:
+      commit_message: "Github Action: Auto Minified JS and CSS files"
+      branch: ${{ github.ref }}
 ```
 
 ##### Specifying output directory
@@ -30,9 +38,17 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: actions/auto-minify@v1
+    uses: nizarmah/auto-minify@v1
     with:
       directory: 'js'
+
+  # Auto commits minified files to the repository
+  # Ignore it if you don't want to commit the files to the repository 
+  - name: Auto committing minified files
+    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    with:
+      commit_message: "Github Action: Auto Minified JS and CSS files"
+      branch: ${{ github.ref }}
 ```
 
 ##### With different output directory
@@ -43,10 +59,18 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: actions/auto-minify@v1
+    uses: nizarmah/auto-minify@v1
     with:
       directory: 'js'
       output: 'mini_js'
+
+  # Auto commits minified files to the repository
+  # Ignore it if you don't want to commit the files to the repository 
+  - name: Auto committing minified files
+    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    with:
+      commit_message: "Github Action: Auto Minified JS and CSS files"
+      branch: ${{ github.ref }}
 ```
 
 > Please note that you will have to `commit` the changed files using a different `action`
