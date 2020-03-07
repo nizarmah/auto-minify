@@ -30,9 +30,13 @@ for filename in `ls $INPUT_DIRECTORY`; do
 	if [ "$extension" == "js" ]; then
 		outpath="$outpath.js"
 
+		echo "Minify : JS : $filepath -> $outpath"
+
 		npx uglifyjs $filepath --compress --mangle --output $outpath
 	elif [ "$extension" == "css" ]; then
 		outpath="$outpath.css"
+
+		echo "Minify : CSS : $filepath -> $outpath"
 
 		npx cleancss -o $outpath $filepath
 	fi
