@@ -1,0 +1,14 @@
+{
+	"name": "auto-minify",
+	"repository": "nizarmah/auto-minify",
+	"homepage": "https://github.com/nizarmah/auto-minify/",
+	"dependencies": {
+		"uglify-js": "^3.8.0",
+		"clean-css-cli": "^4.3.0"
+	},
+	"author": {
+		"name": "Nizar Mahmoud",
+		"email": "nizarmah@hotmail.com",
+		"url": "https://github.com/nizarmah"
+	}
+}
