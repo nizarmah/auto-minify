@@ -1,0 +1,22 @@
+name: "Auto Minify"
+description: "Minifies JS and CSS files with UglifyJS and CleanCSS"
+
+author: "Nizar Mahmoud <nizarmah@hotmail.com>"
+
+inputs:
+  directory:
+    description: "Directory that contains the files you want to minify. Defaults to current directory (.)"
+    required: false
+    default: "."
+  output:
+    description: "Directory that contains the minified files. Defaults to same directory"
+    required: false
+    default: ""
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "archive"
+  color: "purple"
