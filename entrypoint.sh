@@ -1,43 +1,83 @@
 #!/bin/bash -l
 
+output_name () {
+	: '
+	arguments:
+		1- filepath (from find_files)
+
+	checks out_dir if empty or not
+		- if empty, returns :
+			dirname + filename + `.min` + file_extension
+			eg: /js/a/ + main + .min + .js
+		- if not empty, returns:
+			out_dir + sub_dir + filename + `.min` + file_extension
+			eg: /min_js/ + /a/ + main + .min + .js
+
+	> note : sub_dir = dirname $1 - in_path
+	'
+	f_name=$( basename $1 | grep -oP '^.*(?=\.)' )
+	f_extn=$( basename $1 | grep -oP '\.[^\.]*$' )
+
+	f_dir=$( dirname $1 | xargs readlink -m )
+	# assume that in_dir is `js/*` directly, so we want
+	# first dirname or the list of its files inside it
+	in_path=$( dirname $in_dir | head -1 | xargs readlink -m )
+	# but if it is just a `js/`, we need its full path
+	# not just the dirname, but also the basename with it
+	if [ -d "${in_dir}" ]; then
+		in_path=$( readlink $in_dir )
+	fi
+
+	f_path=$f_dir
+	if [ ! -z $out_dir ]; then
+		f_path="$out_dir/${f_dir#"$in_path"}"
+	fi
+
+	echo "$f_path/$f_name.min$f_extn" | xargs readlink -m
+}
+
+find_files () {
+	: '
+	arguments:
+		1- js | css (supported file extension)
+
+	find all files of certain type inside in_dir
+		- `-maxdepth` helps us specify only specified scope
+		- `find` returns the relative path, which is needed
+		- `*` acts as a recursive operator
+
+	Piped into grep to get all non minified files
+	'
+	find $in_dir -maxdepth 1 -type f -name "*.$1" | grep -v ".min.$1$"
+}
+
 cd /app/
 
-DIR="/github/workspace"
+dir="/github/workspace"
 
-INPUT_DIRECTORY="$DIR/$INPUT_DIRECTORY"
-if [[ $INPUT_DIRECTORY =~ ^.*\/$ ]]; then
-	INPUT_DIRECTORY=${INPUT_DIRECTORY::-1}
+in_dir="$dir/$INPUT_DIRECTORY"
+
+out_dir=""
+if [ ! -z $INPUT_OUTPUT ]; then
+	out_dir="$dir/$INPUT_OUTPUT"
 fi
 
-if [ -z $INPUT_OUTPUT ]; then
-	INPUT_OUTPUT=$INPUT_DIRECTORY
-elif [[ $INPUT_OUTPUT =~ ^.*\/$ ]]; then
-	INPUT_OUTPUT=${INPUT_OUTPUT::-1}
+# create output directories if they don't exist
+mkdir -p $out_dir
 
-	INPUT_OUTPUT="$DIR/$INPUT_OUTPUT"
-fi
+js_files=$( find_files 'js' )
+css_files=$( find_files 'css' )
 
-mkdir -p $INPUT_OUTPUT
+for file in $js_files; do
+	out=$( output_name $file )
 
-for filename in `ls $INPUT_DIRECTORY`; do
-	filepath="$INPUT_DIRECTORY/$filename"
+	echo "Minify : JS : $file -> $out"
+	npx uglifyjs $file --compress --mangle --output $out
+done
 
-	extension="${filename#*.}"
-	filename="${filename%.*}"
+for file in $css_files; do
+	out=$( output_name $file )
 
-	outpath="$INPUT_OUTPUT/$filename.min"
-
-	if [ "$extension" == "js" ]; then
-		outpath="$outpath.js"
-
-		echo "Minify : JS : $filepath -> $outpath"
-
-		npx uglifyjs $filepath --compress --mangle --output $outpath
-	elif [ "$extension" == "css" ]; then
-		outpath="$outpath.css"
-
-		echo "Minify : CSS : $filepath -> $outpath"
-
-		npx cleancss -o $outpath $filepath
-	fi
+	echo "Minify : CSS : $file -> $out"
+	npx cleancss -o $out $file
 done
