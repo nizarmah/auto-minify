@@ -19,7 +19,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@v1.3
+    uses: nizarmah/auto-minify
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
@@ -38,14 +38,14 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@v1.3
+    uses: nizarmah/auto-minify
     with:
       directory: 'js'
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    uses: stefanzweifel/git-auto-commit-action
     with:
       repository: 'js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
@@ -62,7 +62,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@v1.3
+    uses: nizarmah/auto-minify
     with:
       directory: 'js'
       output: 'mini_js'
@@ -70,7 +70,7 @@ steps:
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    uses: stefanzweifel/git-auto-commit-action
     with:
       repository: 'mini_js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
