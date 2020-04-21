@@ -1,7 +1,5 @@
 #!/bin/bash -l
 
-set -e
-
 output_name () {
 	: '
 	arguments:
@@ -109,6 +107,8 @@ fi
 
 js_files=$( find_files 'js' )
 css_files=$( find_files 'css' )
+
+set -e
 
 for file in $js_files; do
 	minify_file $file
