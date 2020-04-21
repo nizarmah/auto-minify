@@ -51,6 +51,44 @@ find_files () {
 	find $in_dir -maxdepth 1 -type f -name "*.$1" | grep -v ".min.$1$"
 }
 
+exec_minify_cmd () {
+	: '
+	arguments: 
+		1- input file
+		2- output file
+
+	returns the command needed to minify the file
+	depending on what type the file is (its extension)
+	'
+	file=$1
+	out=$2
+
+	if [[ $file == *.js ]]; then
+		npx uglifyjs $file --compress --mangle --output $out
+	elif [[ $file == *.css ]]; then
+		npx cleancss -o $out $file
+	fi
+}
+
+minify_file () {
+	: '
+	arguments:
+		1- input file
+
+	checks the file type (whether css or js)
+	then creates the output file of that file
+	then minifies the file with a specific command
+	then checks if the command returned an error
+	if it did, program exits with that error code
+	'
+	file=$( readlink -m $1 )
+	out=$( output_name $file )
+
+	echo "Minify : $file -> $out"
+
+	exec_minify_cmd $file $out
+}
+
 cd /app/
 
 dir="/github/workspace"
@@ -62,22 +100,20 @@ if [ ! -z $INPUT_OUTPUT ]; then
 	out_dir="$dir/$INPUT_OUTPUT"
 fi
 
-# create output directories if they don't exist
-mkdir -p $out_dir
+if [ -n "$out_dir" ]; then
+	# create output directories if they don't exist
+	mkdir -p $out_dir
+fi
 
 js_files=$( find_files 'js' )
 css_files=$( find_files 'css' )
 
-for file in $js_files; do
-	out=$( output_name $file )
+set -e
 
-	echo "Minify : JS : $file -> $out"
-	npx uglifyjs $file --compress --mangle --output $out
+for file in $js_files; do
+	minify_file $file
 done
 
 for file in $css_files; do
-	out=$( output_name $file )
-
-	echo "Minify : CSS : $file -> $out"
-	npx cleancss -o $out $file
+	minify_file	$file
 done
