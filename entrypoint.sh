@@ -1,5 +1,7 @@
 #!/bin/bash -l
 
+set -e
+
 output_name () {
 	: '
 	arguments:
@@ -60,7 +62,6 @@ exec_minify_cmd () {
 	returns the command needed to minify the file
 	depending on what type the file is (its extension)
 	'
-
 	file=$1
 	out=$2
 
