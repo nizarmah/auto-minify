@@ -102,8 +102,10 @@ if [ ! -z $INPUT_OUTPUT ]; then
 	out_dir="$dir/$INPUT_OUTPUT"
 fi
 
-# create output directories if they don't exist
-mkdir -p $out_dir
+if [ -n "$out_dir" ]; then
+	# create output directories if they don't exist
+	mkdir -p $out_dir
+fi
 
 js_files=$( find_files 'js' )
 css_files=$( find_files 'css' )
