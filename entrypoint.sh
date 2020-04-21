@@ -81,7 +81,7 @@ minify_file () {
 	then checks if the command returned an error
 	if it did, program exits with that error code
 	'
-	file=$1
+	file=$( readlink -m $1 )
 	out=$( output_name $file )
 
 	echo "Minify : $file -> $out"
