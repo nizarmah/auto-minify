@@ -1,5 +1,5 @@
 # auto-minify
-Minifies JS and CSS files with UglifyJS and CleanCSS
+Minifies JS and CSS files with Babel-Minify and CleanCSS
 
 
 ### Inputs
