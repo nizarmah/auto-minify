@@ -64,7 +64,7 @@ exec_minify_cmd () {
 	out=$2
 
 	if [[ $file == *.js ]]; then
-		npx uglifyjs $file --compress --mangle --output $out
+		npx minify $file --out-file $out
 	elif [[ $file == *.css ]]; then
 		npx cleancss -o $out $file
 	fi
