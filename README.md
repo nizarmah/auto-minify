@@ -19,7 +19,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify
+    uses: nizarmah/auto-minify@master
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
@@ -38,7 +38,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify
+    uses: nizarmah/auto-minify@master
     with:
       directory: 'js'
 
@@ -62,7 +62,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify
+    uses: nizarmah/auto-minify@master
     with:
       directory: 'js'
       output: 'mini_js'
