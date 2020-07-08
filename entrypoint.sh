@@ -25,7 +25,7 @@ output_name () {
 	# but if it is just a `js/`, we need its full path
 	# not just the dirname, but also the basename with it
 	if [ -d "${in_dir}" ]; then
-		in_path=$( readlink $in_dir )
+		in_path=$f_dir
 	fi
 
 	f_path=$f_dir
