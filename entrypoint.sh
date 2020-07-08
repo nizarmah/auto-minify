@@ -25,12 +25,14 @@ output_name () {
 	# but if it is just a `js/`, we need its full path
 	# not just the dirname, but also the basename with it
 	if [ -d "${in_dir}" ]; then
-		in_path=$( readlink $in_dir )
+		in_path=$f_dir
 	fi
 
 	f_path=$f_dir
 	if [ ! -z $out_dir ]; then
 		f_path="$out_dir/${f_dir#"$in_path"}"
+
+		mkdir -p $f_path
 	fi
 
 	echo "$f_path/$f_name.min$f_extn" | xargs readlink -m
@@ -100,7 +102,7 @@ if [ ! -z $INPUT_OUTPUT ]; then
 	out_dir="$dir/$INPUT_OUTPUT"
 fi
 
-if [ -n "$out_dir" ]; then
+if [ ! -z $out_dir ]; then
 	# create output directories if they don't exist
 	mkdir -p $out_dir
 fi
