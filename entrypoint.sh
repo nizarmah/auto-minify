@@ -31,6 +31,8 @@ output_name () {
 	f_path=$f_dir
 	if [ ! -z $out_dir ]; then
 		f_path="$out_dir/${f_dir#"$in_path"}"
+
+		mkdir -p $f_path
 	fi
 
 	echo "$f_path/$f_name.min$f_extn" | xargs readlink -m
