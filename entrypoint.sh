@@ -100,7 +100,7 @@ if [ ! -z $INPUT_OUTPUT ]; then
 	out_dir="$dir/$INPUT_OUTPUT"
 fi
 
-if [ -n "$out_dir" ]; then
+if [ ! -z $out_dir ]; then
 	# create output directories if they don't exist
 	mkdir -p $out_dir
 fi
