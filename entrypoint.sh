@@ -44,13 +44,26 @@ find_files () {
 		1- js | css (supported file extension)
 
 	find all files of certain type inside in_dir
-		- `-maxdepth` helps us specify only specified scope
 		- `find` returns the relative path, which is needed
 		- `*` acts as a recursive operator
 
 	Piped into grep to get all non minified files
+
+	optional parameters:
+		- `-maxdepth`
+
+	Clear all optional parameter keys in case the values are empty
+	So, when appended to the command parameters, no error is caused
 	'
-	find $in_dir -maxdepth 1 -type f -name "*.$1" | grep -v ".min.$1$"
+
+	MAXDEPTH_KEY="-maxdepth"
+	MAXDEPTH_VAL=$INPUT_MAXDEPTH
+
+	if [ -z $MAXDEPTH_VAL ]; then
+		MAXDEPTH_KEY=""
+	fi
+
+	find $in_dir ${MAXDEPTH_KEY} ${MAXDEPTH_VAL} -type f -name "*.$1" | grep -v ".min.$1$"
 }
 
 exec_minify_cmd () {

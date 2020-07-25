@@ -8,6 +8,11 @@ Minifies JS and CSS files with Babel-Minify and CleanCSS
 | -- | -- | -- | -- |
 | directory | Directory that contains the files you want to minify. | false | . ( current directory ) |
 | output | Directory that contains the minified files. | false | same as directory |
+| maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | "" (empty) |
+
+> With the addition of `maxdepth`, the action traverses by default into all subdirectories in a specified directory.
+>
+> ##### [Follow this example if you want to minify the files in the first level of a certain directory.](#specifying-maxdepth)
 
 ### Example
 
@@ -20,6 +25,27 @@ steps:
 
   - name: Auto Minify
     uses: nizarmah/auto-minify@master
+
+  # Auto commits minified files to the repository
+  # Ignore it if you don't want to commit the files to the repository 
+  - name: Auto committing minified files
+    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    with:
+      commit_message: "Github Action: Auto Minified JS and CSS files"
+      branch: ${{ github.ref }}
+```
+
+##### Specifying Maxdepth
+
+```
+steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
+  - uses: actions/checkout@v2
+
+  - name: Auto Minify
+    uses: nizarmah/auto-minify@master
+    with:
+      maxdepth: 1
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
