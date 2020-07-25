@@ -12,6 +12,10 @@ inputs:
     description: "Directory that contains the minified files. Defaults to same directory"
     required: false
     default: ""
+  maxdepth:
+    description: "Descend at most levels (a non-negative integer) levels of directories below the starting-points."
+    required: false
+    default: ""
 
 runs:
   using: "docker"
