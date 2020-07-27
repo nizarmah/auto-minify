@@ -3,6 +3,7 @@
 	"repository": "nizarmah/auto-minify",
 	"homepage": "https://github.com/nizarmah/auto-minify/",
 	"dependencies": {
+		"uglify-js": "^3.10.0",
 		"babel-minify": "^0.5.1",
 		"clean-css-cli": "^4.3.0"
 	},
