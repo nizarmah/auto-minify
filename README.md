@@ -9,6 +9,7 @@ Minifies JS and CSS files with Babel-Minify and CleanCSS
 | directory | Directory that contains the files you want to minify. | false | . ( current directory ) |
 | output | Directory that contains the minified files. | false | same as directory |
 | maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | "" (empty) |
+| js_engine | Specifies which of the supported packages minifies JS files. Supported packages: `babel`, `uglify-js` | false | babel |
 
 > With the addition of `maxdepth`, the action traverses by default into all subdirectories in a specified directory.
 >

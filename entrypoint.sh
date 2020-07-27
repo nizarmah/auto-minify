@@ -66,6 +66,28 @@ find_files () {
 	find $in_dir ${MAXDEPTH_KEY} ${MAXDEPTH_VAL} -type f -name "*.$1" | grep -v ".min.$1$"
 }
 
+exec_minify_js () {
+	: '
+	arguments:
+		1- input file
+		2- output file
+
+	returns the command needed to minify the js file
+	based on the requested JavaScript Engine in the
+	input `js_engine` 
+	'
+	file=$1
+	out=$2
+
+	js_engine=$INPUT_JS_ENGINE
+
+	if [[ $js_engine == "babel" ]]; then
+		npx minify $file --out-file $out
+	elif [[ $js_engine == "uglify-js" ]]; then
+		npx uglifyjs $file --compress --mangle --output $out
+	fi
+}
+
 exec_minify_cmd () {
 	: '
 	arguments: 
@@ -79,7 +101,7 @@ exec_minify_cmd () {
 	out=$2
 
 	if [[ $file == *.js ]]; then
-		npx minify $file --out-file $out
+		exec_minify_js $file $out
 	elif [[ $file == *.css ]]; then
 		npx cleancss -o $out $file
 	fi
