@@ -57,7 +57,7 @@ steps:
       branch: ${{ github.ref }}
 ```
 
-##### Specifying output directory
+##### Specifying input directory
 
 ```
 steps:
