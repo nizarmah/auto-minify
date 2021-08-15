@@ -45,7 +45,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.0
+    uses: nizarmah/auto-minify@v2
 
   # Auto commits minified content to the existing files
   # Ignore it if you don't want to commit the files to the repository 
