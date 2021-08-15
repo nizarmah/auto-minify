@@ -37,6 +37,25 @@ steps:
       branch: ${{ github.ref }}
 ```
 
+##### Overwriting Existing Files
+
+```
+steps:
+  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
+  - uses: actions/checkout@v2
+
+  - name: Auto Minify
+    uses: nizarmah/auto-minify@v2.0
+
+  # Auto commits minified content to the existing files
+  # Ignore it if you don't want to commit the files to the repository 
+  - name: Auto committing minified files
+    uses: stefanzweifel/git-auto-commit-action@v4
+    with:
+      commit_message: "Github Action: Auto Minified JS and CSS files"
+      branch: ${{ github.ref }}
+```
+
 ##### Specifying Maxdepth
 
 ```
