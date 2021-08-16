@@ -25,12 +25,12 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@master
+    uses: nizarmah/auto-minify@v2
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    uses: stefanzweifel/git-auto-commit-action@v4
     with:
       commit_message: "Github Action: Auto Minified JS and CSS files"
       branch: ${{ github.ref }}
@@ -44,14 +44,14 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@master
+    uses: nizarmah/auto-minify@v2
     with:
       maxdepth: 1
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    uses: stefanzweifel/git-auto-commit-action@v4
     with:
       commit_message: "Github Action: Auto Minified JS and CSS files"
       branch: ${{ github.ref }}
@@ -65,14 +65,14 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@master
+    uses: nizarmah/auto-minify@v2
     with:
       directory: 'js'
 
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action
+    uses: stefanzweifel/git-auto-commit-action@v4
     with:
       repository: 'js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
@@ -89,7 +89,7 @@ steps:
   - uses: actions/checkout@v2
 
   - name: Auto Minify
-    uses: nizarmah/auto-minify@master
+    uses: nizarmah/auto-minify@v2
     with:
       directory: 'js'
       output: 'mini_js'
@@ -97,7 +97,7 @@ steps:
   # Auto commits minified files to the repository
   # Ignore it if you don't want to commit the files to the repository 
   - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action
+    uses: stefanzweifel/git-auto-commit-action@v4
     with:
       repository: 'mini_js'
       commit_message: "Github Action: Auto Minified JS and CSS files"
