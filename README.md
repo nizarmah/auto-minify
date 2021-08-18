@@ -46,6 +46,8 @@ steps:
 
   - name: Auto Minify
     uses: nizarmah/auto-minify@v2
+    with:
+      overwrite: true
 
   # Auto commits minified content to the existing files
   # Ignore it if you don't want to commit the files to the repository 
