@@ -35,7 +35,12 @@ output_name () {
 		mkdir -p $f_path
 	fi
 
-	echo "$f_path/$f_name.min$f_extn" | xargs readlink -m
+	min_extn=".min"
+	if $overwrite; then
+		min_extn=""
+	fi
+
+	echo "$f_path/$f_name$min_extn$f_extn" | xargs readlink -m
 }
 
 find_files () {
@@ -140,6 +145,11 @@ fi
 if [ ! -z $out_dir ]; then
 	# create output directories if they don't exist
 	mkdir -p $out_dir
+fi
+
+overwrite=false
+if [ "${INPUT_OVERWRITE,,}" == "true" ]; then
+	overwrite=true
 fi
 
 js_files=$( find_files 'js' )
