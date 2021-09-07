@@ -154,7 +154,6 @@ fi
 
 file_set=$({
 	find_files 'js' &
-	find_files 'mjs' &
 	find_files 'css' &
 })
 
