@@ -152,15 +152,14 @@ if [ "${INPUT_OVERWRITE,,}" == "true" ]; then
 	overwrite=true
 fi
 
-js_files=$( find_files 'js' )
-css_files=$( find_files 'css' )
+file_set=$({
+	find_files 'js' &
+	find_files 'mjs' &
+	find_files 'css' &
+})
 
 set -e
 
-for file in $js_files; do
+for file in $file_set; do
 	minify_file $file
-done
-
-for file in $css_files; do
-	minify_file	$file
 done
