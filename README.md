@@ -7,7 +7,7 @@ Minifies JS and CSS files with Babel-Minify and CleanCSS
 | Input | Description | Required | Default Value |
 | -- | -- | -- | -- |
 | directory | Directory that contains the files you want to minify. | false | . ( current directory ) |
-| exclude_directories | Exclude child folders from the main directory. Combine them in a string separated by semicolon and relative to the main directory eg. 'dir1;js/dir2;js/test/dir3'. | false | "" (empty) |
+| exclude_directories | Exclude child folders from the main directory. Combine them in a string separated by semicolon and relative to the main directory eg. `dir1;js/dir2;js/test/dir3`. | false | "" (empty) |
 | output | Directory that contains the minified files. | false | same as directory |
 | overwrite | Overwrites the existing files with the minified version. Defaults to false. | false | false |
 | maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | "" (empty) |
@@ -129,7 +129,7 @@ steps:
 
 > Please note that the `repository` when _auto comitting_ has to match `output` in _auto minify_
 
-##### Excluding children directories
+##### Excluding child directories
 
 ```
 steps:
