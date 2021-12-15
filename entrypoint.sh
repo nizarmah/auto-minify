@@ -56,19 +56,32 @@ find_files () {
 
 	optional parameters:
 		- `-maxdepth`
-
-	Clear all optional parameter keys in case the values are empty
-	So, when appended to the command parameters, no error is caused
 	'
 
-	MAXDEPTH_KEY="-maxdepth"
-	MAXDEPTH_VAL=$INPUT_MAXDEPTH
-
-	if [ -z $MAXDEPTH_VAL ]; then
-		MAXDEPTH_KEY=""
+	if ! [ -z $INPUT_MAXDEPTH ] && [[ $INPUT_MAXDEPTH == ?(-)+([0-9]) ]]; then
+		MAXDEPTH="-maxdepth ${INPUT_MAXDEPTH}"
+	else
+		MAXDEPTH=""
 	fi
 
-	find $in_dir ${MAXDEPTH_KEY} ${MAXDEPTH_VAL} -type f -name "*.$1" -not \( -iname "*\.min.$1" \)
+	EXCLUDES=()
+	if ! [ -z $INPUT_EXCLUDE_DIRECTORIES ]; then
+		IFS=';' read -ra EXCLUDES_ARRAY <<< "$INPUT_EXCLUDE_DIRECTORIES"
+		for i in ${EXCLUDES_ARRAY[@]}; do
+			if [ -z $EXCLUDES ]; then
+				EXCLUDES+=("-path" "$in_dir/$i")
+			else
+				EXCLUDES+=("-o" "-path" "$in_dir/$i")
+			fi
+		done
+	fi
+
+	if ! [ -z $EXCLUDES ]; then
+		EXCLUDES="-type d \( ${EXCLUDES[@]} \) -prune -o"
+	fi
+
+	COMMAND="find $in_dir ${MAXDEPTH} ${EXCLUDES} -type f -name *.$1 -not \( -iname *\.min.$1 \) -print"
+	eval ${COMMAND}
 }
 
 exec_minify_js () {

@@ -8,8 +8,12 @@ inputs:
     description: "Directory that contains the files you want to minify. Defaults to current directory (.)"
     required: false
     default: "."
+  exclude_directories:
+    description: "Exclude child folders from the main directory. Combine them in a string separated by semicolon and relative to the main directory eg. 'dir1;js/dir2;js/test/dir3'"
+    required: false
+    default: ""
   output:
-    description: "Directory that contains the minified files. Defaults to same directory"
+    description: "Directory that contains the minified files. Defaults to same directory."
     required: false
     default: ""
   overwrite:
