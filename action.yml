@@ -24,6 +24,10 @@ inputs:
     description: "Specifies which of the supported packages minifies JS files."
     required: false
     default: "babel"
+  css_engine:
+    description: "Specifies which of the supported packages minifies CSS files."
+    required: false
+    default: "lightning"
 
 runs:
   using: "docker"

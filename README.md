@@ -11,6 +11,7 @@ Minifies JS and CSS files with Babel-Minify and CleanCSS
 | overwrite | Overwrites the existing files with the minified version. Defaults to false. | false | false |
 | maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | "" (empty) |
 | js_engine | Specifies which of the supported packages minifies JS files. Supported packages: `babel`, `uglify-js` | false | babel |
+| css_engine | Specifies which of the supported packages minifies CSS files. Supported packages: `lightning`, `clean-css` | false | lightning |
 
 > With the addition of `maxdepth`, the action traverses by default into all subdirectories in a specified directory.
 >

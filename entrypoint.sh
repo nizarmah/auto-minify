@@ -93,6 +93,28 @@ exec_minify_js () {
 	fi
 }
 
+exec_minify_css () {
+	: '
+	arguments:
+		1- input file
+		2- output file
+
+	returns the command needed to minify the css file
+	based on the requested CSS Engine in the
+	input `css_engine` 
+	'
+	file=$1
+	out=$2
+
+	css_engine=$INPUT_CSS_ENGINE
+
+	if [[ $css_engine == "clean-css" ]]; then
+		npx cleancss -o $out $file
+	elif [[ $css_engine == "lightning" ]]; then
+		npx lightningcss --minify $file --output-file $out
+	fi
+}
+
 exec_minify_cmd () {
 	: '
 	arguments: 
@@ -108,7 +130,7 @@ exec_minify_cmd () {
 	if [[ $file == *.js ]]; then
 		exec_minify_js $file $out
 	elif [[ $file == *.css ]]; then
-		npx cleancss -o $out $file
+		exec_minify_css $file $out
 	fi
 }
 
