@@ -18,7 +18,7 @@ jobs:
       - name: Test on affected directory
         uses: ./
         with:
-          directory: "tests/directory/affected/*"
+          directory: "tests/directory/affected"
 
       - name: Assert not affected result does not exist
         run: |
@@ -30,6 +30,29 @@ jobs:
             tests/directory/affected/main.expected.js \
             tests/directory/affected/main.min.js
 
+  maxdepth:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test on shallow maxdepth
+        uses: ./
+        with:
+          directory: "tests/maxdepth"
+          maxdepth: 1
+
+      - name: Assert shallow result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/maxdepth/main.expected.js \
+            tests/maxdepth/main.min.js
+
+      - name: Assert deep result does not exist
+        run: |
+          ! test -e tests/maxdepth/not-affected/main.min.js
+
   overwrite:
     runs-on: ubuntu-latest
 
@@ -40,7 +63,7 @@ jobs:
       - name: Test overwrite
         uses: ./
         with:
-          directory: "tests/overwrite/*"
+          directory: "tests/overwrite"
           overwrite: true
 
       - name: Assert overwrite result matches expected
