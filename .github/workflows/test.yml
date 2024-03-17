@@ -22,7 +22,7 @@ jobs:
 
       - name: Assert not affected result does not exist
         run: |
-          test -e tests/directory/not-affected/main.min.js
+          ! test -e tests/directory/not-affected/main.min.js
 
       - name: Assert affected result matches expected
         run: |
@@ -40,11 +40,11 @@ jobs:
       - name: Test overwrite
         uses: ./
         with:
-          directory: "tests/directory/overwrite/*"
+          directory: "tests/overwrite/*"
           overwrite: true
 
       - name: Assert overwrite result matches expected
         run: |
           git diff --exit-code --no-index \
-            tests/directory/overwrite/main.expected.js \
-            tests/directory/overwrite/main.js
+            tests/overwrite/main.expected.js \
+            tests/overwrite/main.js
