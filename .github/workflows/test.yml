@@ -30,11 +30,20 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Overwrite the original file
+      - name: Test successful overwrite
         uses: ./
         with:
-          directory: "tests/action/overwrite/*"
+          directory: "tests/action/overwrite/overwritten/*"
           overwrite: true
 
-      - name: Compare the minified files
-        run: git diff --exit-code
+      - name: Assert successful overwrite
+        run: git diff --exit-code tests/action/overwrite/overwritten/*
+
+      - name: Test failed overwrite
+        uses: ./
+        with:
+          directory: "tests/action/overwrite/not-overwritten/*"
+          overwrite: false
+
+      - name: Assert failed overwrite
+        run: ! git diff --exit-code tests/action/overwrite/not-overwritten/*
