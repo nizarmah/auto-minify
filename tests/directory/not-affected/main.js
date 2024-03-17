@@ -1,5 +1,5 @@
 function print_hello() {
-	console.log('hello world from directory/ignored');
+	console.log('hello world from directory/not-affected');
 }
 
 window.addEventListener('load', function () {
