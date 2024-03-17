@@ -44,7 +44,7 @@ jobs:
         uses: ./
         with:
           directory: "tests/action/overwrite/not-overwritten/*"
-          overwrite: false
+          overwrite: true
 
       - name: Assert failed overwrite
         run: |
