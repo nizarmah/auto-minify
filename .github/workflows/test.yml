@@ -40,7 +40,7 @@ jobs:
       - name: Test on shallow maxdepth
         uses: ./
         with:
-          directory: "tests/maxdepth/affected"
+          directory: "tests/maxdepth"
           maxdepth: 1
 
       - name: Assert shallow result matches expected
