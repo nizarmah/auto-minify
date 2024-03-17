@@ -37,7 +37,8 @@ jobs:
           overwrite: true
 
       - name: Assert successful overwrite
-        run: git diff --exit-code tests/action/overwrite/overwritten/*
+        run: |
+          git diff --exit-code tests/action/overwrite/overwritten/*
 
       - name: Test failed overwrite
         uses: ./
@@ -46,4 +47,5 @@ jobs:
           overwrite: false
 
       - name: Assert failed overwrite
-        run: ! git diff --exit-code tests/action/overwrite/not-overwritten/*
+        run: |
+          ! git diff --exit-code tests/action/overwrite/not-overwritten/*
