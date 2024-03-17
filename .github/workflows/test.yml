@@ -15,13 +15,20 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Targets specific directory
+      - name: Test on affected directory
         uses: ./
         with:
-          directory: "tests/action/directory/a/*"
+          directory: "tests/directory/affected/*"
 
-      - name: Compare the minified files
-        run: git diff --exit-code
+      - name: Assert not affected result does not exist
+        run: |
+          ! test -e tests/directory/not-affected/main.min.js
+
+      - name: Assert affected result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/directory/affected/main.expected.js \
+            tests/directory/affected/main.min.js
 
   overwrite:
     runs-on: ubuntu-latest
@@ -29,23 +36,15 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
-
-      - name: Test successful overwrite
+        
+      - name: Test overwrite
         uses: ./
         with:
-          directory: "tests/action/overwrite/overwritten/*"
+          directory: "tests/overwrite/*"
           overwrite: true
 
-      - name: Assert successful overwrite
+      - name: Assert overwrite result matches expected
         run: |
-          git diff --exit-code tests/action/overwrite/overwritten/*
-
-      - name: Test failed overwrite
-        uses: ./
-        with:
-          directory: "tests/action/overwrite/not-overwritten/*"
-          overwrite: true
-
-      - name: Assert failed overwrite
-        run: |
-          ! git diff --exit-code tests/action/overwrite/not-overwritten/*
+          git diff --exit-code --no-index \
+            tests/overwrite/main.expected.js \
+            tests/overwrite/main.js
