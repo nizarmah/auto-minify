@@ -9,22 +9,25 @@ on:
 
 jobs:
   action:
+    name: "Tests the action inputs"
+
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         include:
-          - test: directory
-            params:
+          - name: "Targets the specified directory"
+            with:
               directory: 'tests/action/directory/*'
 
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Targets the specified directory
+      - name: ${{ matrix.name }}
         uses: ./
-        with: ${{ toJSON(matrix.params) }}
+        with:
+          directory: ${{ matrix.with.directory }}
 
       - name: Compare the minified files
         run: git diff --exit-code
