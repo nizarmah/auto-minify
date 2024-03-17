@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Targets the specified directory
-        uses: ./
+        uses: nizarmah@auto-minify
         with:
           directory: 'tests/action/directory/*'
 
