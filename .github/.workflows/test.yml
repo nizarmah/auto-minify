@@ -1,10 +1,12 @@
 on:
   push:
+    branches: ["master"]
   pull_request:
+    branches: ["master"]
   workflow_dispatch:
 
 jobs:
-  action/directory:
+  action-directory:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
