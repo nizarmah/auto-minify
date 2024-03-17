@@ -1,5 +1,3 @@
-name: Test workflow
-
 on:
   push:
     branches: ["master"]
@@ -8,26 +6,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  action:
-    name: "Tests the action inputs"
-
+  directory:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        include:
-          - name: "Targets the specified directory"
-            with:
-              directory: 'tests/action/directory/*'
 
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: ${{ matrix.name }}
+      - name: Targets specific directory
         uses: ./
         with:
-          directory: ${{ matrix.with.directory }}
+          directory: "tests/action/directory/a/*"
 
       - name: Compare the minified files
         run: git diff --exit-code
