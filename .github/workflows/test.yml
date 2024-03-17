@@ -22,3 +22,19 @@ jobs:
 
       - name: Compare the minified files
         run: git diff --exit-code
+
+  overwrite:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Overwrite the original file
+        uses: ./
+        with:
+          directory: "tests/action/overwrite/*"
+          overwrite: true
+
+      - name: Compare the minified files
+        run: git diff --exit-code
