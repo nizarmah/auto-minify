@@ -136,3 +136,45 @@ jobs:
           git diff --exit-code --no-index \
             tests/js_engine/uglify-js/main.expected.js \
             tests/js_engine/uglify-js/main.min.js
+
+  css_engine_lightning:
+    name: "css_engine / lightning"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test css_engine lightning
+        uses: ./
+        with:
+          directory: "tests/css_engine"
+          output: "tests/css_engine/lightning"
+          css_engine: "lightning"
+
+      - name: Assert css_engine lightning result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/css_engine/lightning/main.expected.css \
+            tests/css_engine/lightning/main.min.css
+
+  css_engine_clean_css:
+    name: "css_engine / clean-css"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test css_engine clean-css
+        uses: ./
+        with:
+          directory: "tests/css_engine"
+          output: "tests/css_engine/clean-css"
+          css_engine: "clean-css"
+
+      - name: Assert css_engine clean-css result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/css_engine/clean-css/main.expected.css \
+            tests/css_engine/clean-css/main.min.css
