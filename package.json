@@ -3,10 +3,10 @@
 	"repository": "nizarmah/auto-minify",
 	"homepage": "https://github.com/nizarmah/auto-minify/",
 	"dependencies": {
-		"uglify-js": "^3.10.0",
-		"babel-minify": "^0.5.1",
-		"clean-css-cli": "^4.3.0",
-		"lightningcss-cli": "^1.24.1"
+		"babel-minify": "^0.2.0",
+		"clean-css-cli": "^5.6.3",
+		"lightningcss-cli": "^1.24.1",
+		"uglify-js": "^3.17.4"
 	},
 	"author": {
 		"name": "Nizar Mahmoud",
