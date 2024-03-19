@@ -59,7 +59,7 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
-        
+
       - name: Test overwrite
         uses: ./
         with:
@@ -71,3 +71,26 @@ jobs:
           git diff --exit-code --no-index \
             tests/overwrite/main.expected.js \
             tests/overwrite/main.js
+
+  output:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test output
+        uses: ./
+        with:
+          directory: "tests/output"
+          output: "tests/output/prod/js"
+
+      - name: Assert output directory is created
+        run: |
+          test -d tests/output/prod/js
+
+      - name: Assert output result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/output/main.expected.js \
+            tests/output/prod/js/main.min.js
