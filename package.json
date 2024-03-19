@@ -5,7 +5,8 @@
 	"dependencies": {
 		"uglify-js": "^3.10.0",
 		"babel-minify": "^0.5.1",
-		"clean-css-cli": "^4.3.0"
+		"clean-css-cli": "^4.3.0",
+		"lightningcss-cli": "^1.24.1"
 	},
 	"author": {
 		"name": "Nizar Mahmoud",
