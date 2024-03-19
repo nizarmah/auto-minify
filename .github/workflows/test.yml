@@ -94,3 +94,45 @@ jobs:
           git diff --exit-code --no-index \
             tests/output/main.expected.js \
             tests/output/prod/js/main.min.js
+
+  js_engine_babel:
+    name: "js_engine / babel"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test js_engine babel
+        uses: ./
+        with:
+          directory: "tests/js_engine"
+          output: "tests/js_engine/babel"
+          js_engine: "babel"
+
+      - name: Assert js_engine babel result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/js_engine/babel/main.expected.js \
+            tests/js_engine/babel/main.min.js
+
+  js_engine_uglify_js:
+    name: "js_engine / uglify-js"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Test js_engine uglify-js
+        uses: ./
+        with:
+          directory: "tests/js_engine"
+          output: "tests/js_engine/uglify-js"
+          js_engine: "uglify-js"
+
+      - name: Assert js_engine uglify-js result matches expected
+        run: |
+          git diff --exit-code --no-index \
+            tests/js_engine/uglify-js/main.expected.js \
+            tests/js_engine/uglify-js/main.min.js
