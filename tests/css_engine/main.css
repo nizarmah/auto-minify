@@ -1,0 +1,95 @@
+/* Example CSS file for minification testing */
+
+/* Basic styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Class selector */
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* ID selector */
+#main-header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+/* Hover pseudo-class */
+a:hover {
+  color: #0099cc;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+      transform: translateX(-100%);
+  }
+  to {
+      transform: translateX(0);
+  }
+}
+
+.animated-slide-in {
+  animation: slideIn 1s ease-out;
+}
+
+/* Media query */
+@media (max-width: 600px) {
+  .container {
+      width: 100%;
+  }
+}
+
+/* Nested selectors */
+.nav ul {
+  list-style: none;
+  background-color: #333;
+}
+
+.nav ul li {
+  display: inline;
+  margin-right: 5px;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  padding: 5px 10px;
+  background-color: #333;
+}
+
+/* Attribute selector */
+input[type="text"] {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Pseudo-element */
+.button::before {
+  content: '>>';
+  margin-right: 5px;
+}
+
+/* Issue #27 */
+ul > li:not(.class ul > li, .another-class ul > li) {
+  display: none;
+}
+
+/* End of file */
