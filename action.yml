@@ -1,5 +1,5 @@
 name: "Auto Minify"
-description: "Minifies JS and CSS files with UglifyJS and CleanCSS"
+description: "Minifies JS and CSS files."
 
 author: "Nizar Mahmoud <nizarmah@hotmail.com>"
 
