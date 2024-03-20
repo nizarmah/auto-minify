@@ -1,130 +1,212 @@
 # auto-minify
-Minifies JS and CSS files with Babel-Minify and CleanCSS
 
+![test workflow](https://github.com/nizarmah/auto-minify/actions/workflows/test.yml/badge.svg?branch=master&event=push)
+
+Minifies JS and CSS files.
+
+## Quickstart
+
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: auto minify the files
+        uses: nizarmah/auto-minify@v3
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
+```
+
+## Features
+
+* **Flexibility**: Minify JS and CSS files with the engine of your choice.
+* **Customization**: Specify directories, handle file overwrites, and control traversal depth.
+* **Reliability**: Continuous integration tests validate functionality and predictability.
+
+## Customization
 
 ### Inputs
 
 | Input | Description | Required | Default Value |
-| -- | -- | -- | -- |
-| directory | Directory that contains the files you want to minify. | false | . ( current directory ) |
-| output | Directory that contains the minified files. | false | same as directory |
+| :-- | :-- | --: | --: |
+| directory | Directory that contains the files you want to minify. | false | . |
+| output | Directory that contains the minified files. | false | . |
 | overwrite | Overwrites the existing files with the minified version. Defaults to false. | false | false |
-| maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | "" (empty) |
+| maxdepth | Descend at most levels (a non-negative integer) levels of directories below the starting-points. | false | |
 | js_engine | Specifies which of the supported packages minifies JS files. Supported packages: `babel`, `uglify-js` | false | babel |
 | css_engine | Specifies which of the supported packages minifies CSS files. Supported packages: `lightning`, `clean-css` | false | lightning |
 
-> With the addition of `maxdepth`, the action traverses by default into all subdirectories in a specified directory.
+> [!IMPORTANT]
+> All paths are relative to the root of the repository.
 >
-> ##### [Follow this example if you want to minify the files in the first level of a certain directory.](#specifying-maxdepth)
+> `output` defaults to the same directory as `directory`, unless specified.
+>
+> `maxdepth` traverses into all subdirectories by default.
 
-### Example
+### Examples
 
-##### Default implementation
+<details>
+<summary>Overwriting existing files</summary><br />
 
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: replace js and css files with minified ones
+        uses: nizarmah/auto-minify@v3
+        with:
+          overwrite: true
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
 ```
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-  - uses: actions/checkout@v2
+<br />
+</details>
 
-  - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.1
+<details>
+<summary>Restricting traversal depth</summary><br />
 
-  # Auto commits minified files to the repository
-  # Ignore it if you don't want to commit the files to the repository 
-  - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v4
-    with:
-      commit_message: "Github Action: Auto Minified JS and CSS files"
-      branch: ${{ github.ref }}
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: auto minify files at most 1 level deep
+        uses: nizarmah/auto-minify@v3
+        with:
+          maxdepth: 1
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
 ```
+<br />
+</details>
 
-##### Overwriting Existing Files
+<details>
+<summary>Targeting specific directories</summary><br />
 
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: auto minify files in the js directory
+        uses: nizarmah/auto-minify@v3
+        with:
+          directory: 'js'
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
 ```
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-  - uses: actions/checkout@v2
+<br />
+</details>
 
-  - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.1
-    with:
-      overwrite: true
+<details>
+<summary>Saving to a different directory</summary><br />
 
-  # Auto commits minified content to the existing files
-  # Ignore it if you don't want to commit the files to the repository 
-  - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v4
-    with:
-      commit_message: "Github Action: Auto Minified JS and CSS files"
-      branch: ${{ github.ref }}
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: auto minify files to a different directory
+        uses: nizarmah/auto-minify@v3
+        with:
+          directory: 'assets'
+          output: 'mini_assets'
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
 ```
+<br />
+</details>
 
-##### Specifying Maxdepth
+<details>
+<summary>Using different engines</summary><br />
 
+```yaml
+on: [push]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository
+        uses: actions/checkout@v4
+
+      - name: auto minify files with different engines
+        uses: nizarmah/auto-minify@v3
+        with:
+          js_engine: 'uglify-js'
+          css_engine: 'clean-css'
+
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "bot: Add auto minified files"
 ```
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-  - uses: actions/checkout@v2
+<br />
+</details>
 
-  - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.1
-    with:
-      maxdepth: 1
+> [!TIP]
+> If you can't find what you're looking for, check our [automated tests](./.github/workflows/test.yml).
 
-  # Auto commits minified files to the repository
-  # Ignore it if you don't want to commit the files to the repository 
-  - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v4
-    with:
-      commit_message: "Github Action: Auto Minified JS and CSS files"
-      branch: ${{ github.ref }}
-```
+## Contributing
 
-##### Specifying input directory
+Your contributions are welcome!
+There's no guide yet, but don't hold back.
 
-```
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-  - uses: actions/checkout@v2
+If it's a bug, please provide a minimal example to reproduce it.
 
-  - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.1
-    with:
-      directory: 'js'
+If it's a feature, please provide a use case for it.
 
-  # Auto commits minified files to the repository
-  # Ignore it if you don't want to commit the files to the repository 
-  - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v4
-    with:
-      repository: 'js'
-      commit_message: "Github Action: Auto Minified JS and CSS files"
-      branch: ${{ github.ref }}
-```
+If it's a pull request, please provide a description and a test case for it.
 
-> Please note that the `output` will be in the same _directory_ as `directory` which here is `js`. Therefore, we will need to update `repository` in _auto committing_ to also match `directory`.
+Cheers!
 
-##### With different output directory
+## Versioning
 
-```
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-  - uses: actions/checkout@v2
+We use [SemVer](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](./tags).
 
-  - name: Auto Minify
-    uses: nizarmah/auto-minify@v2.1
-    with:
-      directory: 'js'
-      output: 'mini_js'
+We also provide major version tags to make it easier to always use the latest release of a major version. For example, you can use `nizarmah/auto-minify@v3` to always use the latest release of the current major version.
 
-  # Auto commits minified files to the repository
-  # Ignore it if you don't want to commit the files to the repository 
-  - name: Auto committing minified files
-    uses: stefanzweifel/git-auto-commit-action@v4
-    with:
-      repository: 'mini_js'
-      commit_message: "Github Action: Auto Minified JS and CSS files"
-      branch: ${{ github.ref }}
-```
+## License
 
-> Please note that the `repository` when _auto comitting_ has to match `output` in _auto minify_
+This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) file for details.
