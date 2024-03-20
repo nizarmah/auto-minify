@@ -16,14 +16,13 @@ jobs:
       - name: check out the repository
         uses: actions/checkout@v4
 
-      - name: auto-minify the files
+      - name: auto minify the files
         uses: nizarmah/auto-minify@v3
 
       - name: auto commit the minified files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
 
 ## Features
@@ -76,9 +75,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
-</details><br />
+<br />
+</details>
 
 <details>
 <summary>Restricting traversal depth</summary><br />
@@ -102,9 +101,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
-</details><br />
+<br />
+</details>
 
 <details>
 <summary>Targeting specific directories</summary><br />
@@ -128,9 +127,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
-</details><br />
+<br />
+</details>
 
 <details>
 <summary>Saving to a different directory</summary><br />
@@ -155,9 +154,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
-</details><br />
+<br />
+</details>
 
 <details>
 <summary>Using different engines</summary><br />
@@ -182,9 +181,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "bot: Add auto minified files"
-          branch: ${{ github.ref }}
 ```
-</details><br />
+<br />
+</details>
 
 > [!TIP]
 > If you can't find what you're looking for, check our [automated tests](./.github/workflows/test.yml).
@@ -195,7 +194,9 @@ Your contributions are welcome!
 There's no guide yet, but don't hold back.
 
 If it's a bug, please provide a minimal example to reproduce it.
+
 If it's a feature, please provide a use case for it.
+
 If it's a pull request, please provide a description and a test case for it.
 
 Cheers!
